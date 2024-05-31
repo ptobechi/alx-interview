@@ -7,7 +7,7 @@ paschal triangle
 
 def pascal_triangle(n):
     """
-    paschal triangle function
+    Pascal's Triangle function
     """
     if n <= 0:
         return []
@@ -20,4 +20,4 @@ def pascal_triangle(n):
             row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j]
         triangle.append(row)
 
-        return triangle
+    return triangle
