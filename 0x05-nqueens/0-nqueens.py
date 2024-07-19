@@ -3,7 +3,10 @@
 N-Queens puzzle solver.
 Usage: nqueens N
 """
+
+
 import sys
+
 
 def print_usage_and_exit():
     """
