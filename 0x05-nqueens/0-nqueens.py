@@ -27,10 +27,12 @@ def print_error_and_exit(msg):
 
 def is_safe(board, row, col):
     """
-    Check if it's safe to place a queen at board[row][col].
+    Check if it's safe to place a queen
+    at board[row][col].
 
     Args:
-        board (list of list of int): The chessboard.
+        board (list of list of int):
+        The chessboard.
         row (int): The row index.
         col (int): The column index.
 
@@ -63,7 +65,8 @@ def solve_nqueens(board, col):
 
     Returns:
         bool:
-            True if a solution is found, False otherwise.
+            True if a solution is found
+            False otherwise.
     """
     if col >= len(board):
         solution = []
