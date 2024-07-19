@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/local/bin/node
 
 const request = require('request');
 
@@ -9,14 +9,14 @@ const getCharacterNames = (filmUrl) => {
   return new Promise((resolve, reject) => {
     request(filmUrl, (error, response, body) => {
       if (error) {
-        reject('Request error: ' + error);
+        reject(new Error('Request error: ' + error));
       } else {
         try {
           const filmData = JSON.parse(body);
           const characterUrls = filmData.characters;
           resolve(characterUrls);
         } catch (e) {
-          reject('Error parsing JSON: ' + e.message);
+          reject(new Error('Error parsing JSON: ' + e.message));
         }
       }
     });
@@ -27,13 +27,13 @@ const getCharacterName = (characterUrl) => {
   return new Promise((resolve, reject) => {
     request(characterUrl, (error, response, body) => {
       if (error) {
-        reject('Request error: ' + error);
+        reject(new Error('Request error: ' + error));
       } else {
         try {
           const characterData = JSON.parse(body);
           resolve(characterData.name);
         } catch (e) {
-          reject('Error parsing JSON: ' + e.message);
+          reject(new Error('Error parsing JSON: ' + e.message));
         }
       }
     });
