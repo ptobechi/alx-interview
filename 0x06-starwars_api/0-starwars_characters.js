@@ -1,19 +1,23 @@
-#!/usr/bin/node
+#!/usr/local/bin/node
 
 const request = require('request');
 
 const movieId = process.argv[2];
-const apiUrl = 'https://swapi-api.alx-tools.com/';
+const apiUrl = 'https://swapi-api.alx-tools.com/api/films/';
 
 const getCharacterNames = (filmUrl) => {
   return new Promise((resolve, reject) => {
     request(filmUrl, (error, response, body) => {
       if (error) {
-        reject(error);
+        reject('Request error: ' + error);
       } else {
-        const filmData = JSON.parse(body);
-        const characterUrls = filmData.characters;
-        resolve(characterUrls);
+        try {
+          const filmData = JSON.parse(body);
+          const characterUrls = filmData.characters;
+          resolve(characterUrls);
+        } catch (e) {
+          reject('Error parsing JSON: ' + e.message);
+        }
       }
     });
   });
@@ -23,16 +27,23 @@ const getCharacterName = (characterUrl) => {
   return new Promise((resolve, reject) => {
     request(characterUrl, (error, response, body) => {
       if (error) {
-        reject(error);
+        reject('Request error: ' + error);
       } else {
-        const characterData = JSON.parse(body);
-        resolve(characterData.name);
+        try {
+          const characterData = JSON.parse(body);
+          resolve(characterData.name);
+        } catch (e) {
+          reject('Error parsing JSON: ' + e.message);
+        }
       }
     });
   });
 };
 
-getCharacterNames(apiUrl + 'films/' + movieId)
+// Construct the correct film URL
+const filmUrl = `${apiUrl}${movieId}/`;
+
+getCharacterNames(filmUrl)
   .then(characterUrls => {
     return Promise.all(characterUrls.map(url => getCharacterName(url)));
   })
